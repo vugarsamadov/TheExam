@@ -1,0 +1,23 @@
+﻿@model ChefUpdateVM
+
+<form asp-action="Update" enctype="multipart/form-data">
+    
+    @Html.ValidationSummary();
+
+    <div class="mb-3">
+        <input asp-for="ChefName" class="form-control" placeholder="Name">
+        <span asp-validation-for="ChefName" style="color: red"></span>
+    </div>
+
+    <div class="mb-3">
+        <input asp-for="ChefBio" class="form-control" placeholder="Name">
+        <span asp-validation-for="ChefBio" style="color: red"></span>
+    </div>
+
+    <div class="mb-3">
+        <input asp-for="ProfileImage" class="form-control" placeholder="Name">
+        <span asp-validation-for="ProfileImage" style="color: red"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+</form>

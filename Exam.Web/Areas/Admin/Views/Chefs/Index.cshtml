@@ -1,0 +1,38 @@
+﻿@model GenericPaginatedModel<IEnumerable<ChefVM>>
+
+
+    @section scripts
+    {
+        <script>
+
+        $("body").on("click", "#paginationcontainer #navigationarea a", function (ev) {
+
+                var url = $(this).attr('href')
+                ev.preventDefault();
+                fetch(url).then(a => a.text()).then(a => $("#paginationcontainer").html(a));
+            });
+
+        // function inittables() {
+        //     $('#paginatedtable').dataTable({
+                
+        //         "columns": [
+        //             "Id",
+        //             "Name",
+        //             "ProfileImage",
+        //             "Socials",
+        //             "Actions"
+        //         ]
+        //     });
+
+        // }
+
+        //inittables();
+
+        </script>
+    }
+
+    <a asp-action="Create" class="btn btn-success"> Create</a>
+
+    <div id="paginationcontainer"  > 
+       <partial name="_PartialChefsPaginatedModel" model="Model"></partial>
+    </div>

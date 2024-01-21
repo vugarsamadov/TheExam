@@ -10,4 +10,12 @@
     <ProjectReference Include="..\Exam.Infrastructure\Exam.Infrastructure.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+	</ItemGroup>
+
 </Project>

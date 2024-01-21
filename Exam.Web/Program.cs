@@ -1,7 +1,17 @@
+using Exam.Infrastructure;
+using Exam.Business;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddInfrastructure();
+builder.Services.AddBusiness(builder.Environment);
+
+
 
 var app = builder.Build();
 
@@ -18,7 +28,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+          );
 
 app.MapControllerRoute(
     name: "default",

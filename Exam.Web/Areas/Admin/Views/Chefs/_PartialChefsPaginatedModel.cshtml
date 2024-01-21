@@ -1,0 +1,57 @@
+﻿@model GenericPaginatedModel<IEnumerable<ChefVM>>
+
+
+<nav id="navigationarea" aria-label="...">
+    <ul class="pagination">
+
+        <li class="page-item @(!Model.HasPrev?"disabled":"")">
+            <a class="page-link" href="@(String.Format(Model.BaseUrl,Model.CurrentPage-1,Model.PerPage))" tabindex="-1">Previous</a>
+        </li>
+        @foreach(var pagenumber in Enumerable.Range(1,Model.PageCount))
+        {
+            <li class="page-item @(Model.CurrentPage == pagenumber ?"active":"")">
+                <a class="page-link" href="@(String.Format(Model.BaseUrl,pagenumber,Model.PerPage))">@pagenumber</a></li>
+        }
+        <li class="page-item @(!Model.HasNext?"disabled":"")">
+            <a class="page-link" href="@(String.Format(Model.BaseUrl,Model.CurrentPage+1,Model.PerPage))">Next</a>
+        </li>
+    </ul>
+</nav>
+
+<table id="paginatedtable" class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">ProfileImage</th>
+            <th scope="col">Socials</th>
+            <th colspan="2" scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Data != null)
+            @foreach (var chef in Model.Data)
+            {
+        <tr class="@(chef.IsDeleted?"table-danger":"")">
+            <th scope="row">@chef.Id</th>
+            <td>@chef.ChefName</td>
+            <td>
+                <img height="100" width="100" src="~/@(chef.ProfileImageUrl)"/>
+            </td>
+            <td>@(string.Join(" ",chef.ChefSocialMedias.Select(csm=>csm.SocialName)))</td>
+                    <td>
+                    @if (chef.IsDeleted)
+                    {
+                            <a asp-route-id="@chef.Id" asp-action="RevokeDelete" class="btn btn-warning">RevokeDelete</a>
+                    }
+                    else
+                    {
+                            <a asp-route-id="@chef.Id" asp-action="Delete" class="btn btn-danger">Delete</a>
+                    }
+                        <a asp-route-id="@chef.Id" asp-action="Update" class="btn btn-success">Update</a>
+                   </td>
+        </tr>
+            }
+        
+    </tbody>
+</table>
